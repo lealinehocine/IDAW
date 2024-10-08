@@ -1,5 +1,21 @@
 body{
 display: flex;
-/*flex-direction: column;
-align-content: space-between;*/
+flex-direction: column;
+justify-content: space-between;
+height: 100vh;
+}
+
+
+.center{
+    display: flex;
+    /*justify-content: space-between;*/
+}
+
+.menu{
+    width:30%;
+}
+
+.description{
+    display: flex;
+    flex-wrap: wrap;
 }
