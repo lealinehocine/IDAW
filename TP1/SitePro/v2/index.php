@@ -5,13 +5,10 @@ require_once('template_header.php');
     <h1>Léa-Line SAAD - Accueil</h1>
 
     <div class="center">
-<nav class="menu">
-    <ul>
-    <li id="currentpage"><a  href="index.php">Accueil</a></li>
-    <li><a href="cv.php">CV</a></li>
-    <li><a href="projets.php">Hobbies</a></li>
-    </ul>
-    </nav>
+
+<?php
+require_once('template_menu.php');
+?>
 
 <div class="description">
 <p>Ceci est le site pro de Léa-Line SAAD. </p>
