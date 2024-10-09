@@ -1,27 +1,34 @@
 <?php
-require_once('template_header.php');
-?>
+    require_once('template_header.php');
+    require_once("template_menu.php");
 
-    <h1>Léa-Line SAAD - Accueil</h1>
+    $currentPageId = 'accueil';
+    if(isset($_GET['page'])) {
+    $currentPageId = $_GET['page'];
+}
+?>
+    <header class="bandeau_haut">
+        <h1>Léa-Line SAAD - Accueil</h1>
+    </header>
 
     <div class="center">
 
 <?php
-require_once('template_menu.php');
-renderMenuToHTML('index');
+renderMenuToHTML($currentPageId);
 ?>
 
-<div class="description">
-<p>Ceci est le site pro de Léa-Line SAAD. </p>
+<section class="corps">
+<?php
+$pageToInclude = $currentPageId . ".php";
+if(is_readable($pageToInclude))
+require_once($pageToInclude);
+else
+require_once("error.php");
+?>
+</section>
 
-<p>Etudiante ingénieure en filière numérique à IMT Nord Europe,<br> je recherche un stage 
-    d’une durée de 4 mois  à compter du 12 mai 2025 
-    <br>dans le domaine du développement web et logiciel.
-    <br>Je suis ouverte à la mobilité internationale.</p>
 
-<!--Mettre un visuel-->
-</div>
-</div>
+
 <?php
 require_once('template_footer.php');
 ?>
