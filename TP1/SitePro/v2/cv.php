@@ -1,21 +1,15 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-<title>Léa-Line SAAD - CV</title>
-<link rel="stylesheet" href="style1.css" type="text/css" media="screen" title="default" />
-</head>
-
-<body>
+<?php
+require_once('template_header.php');
+?>
 
 <h1>Léa-Line SAAD - CV</h1>
 
 <div class="center">
 <nav class="menu">
     <ul>
-    <li><a href="index.html">Accueil</a></li>
-    <li><a id="currentpage" href="cv.html">CV</a></li>
-    <li><a href="projets.html">Hobbies</a></li>
+    <li><a href="index.php">Accueil</a></li>
+    <li id="currentpage"><a  href="cv.php">CV</a></li>
+    <li><a href="projets.php">Hobbies</a></li>
     </ul>
     </nav>
 
@@ -47,5 +41,6 @@
 </div>
 
 </div>
-    <p class="bottom">© Léa-Line SAAD - Dernière mise à jour le 08/10/2024</p>
-</body>
+<?php
+require_once('template_footer.php');
+?>

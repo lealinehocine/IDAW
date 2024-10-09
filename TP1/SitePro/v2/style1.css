@@ -58,3 +58,7 @@ li{
 h1, .bottom{
     text-align: center;
 }
+
+#currentpage{
+    background-color: rgb(68, 68, 224);
+}
