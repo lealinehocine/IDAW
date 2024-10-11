@@ -8,7 +8,7 @@
 }
 ?>
     <header class="bandeau_haut">
-        <h1>Léa-Line SAAD - Accueil</h1>
+        <h1>Léa-Line SAAD</h1>
     </header>
 
     <div class="center">

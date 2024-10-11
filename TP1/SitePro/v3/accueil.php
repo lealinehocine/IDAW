@@ -2,14 +2,9 @@
 require_once('template_header.php');
 ?>
 
-    <h1>Léa-Line SAAD - Accueil</h1>
+<h1>Accueil</h1>
 
     <div class="center">
-
-<?php
-require_once('template_menu.php');
-renderMenuToHTML('index');
-?>
 
 <div class="description">
 <p>Ceci est le site pro de Léa-Line SAAD. </p>

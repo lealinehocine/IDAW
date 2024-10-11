@@ -2,14 +2,10 @@
 require_once('template_header.php');
 ?>
 
-    <h1>Léa-Line SAAD - Hobbies</h1>
+<h1>Hobbies</h1>
 
     <div class="center">
 
-<?php
-require_once('template_menu.php');
-renderMenuToHTML('projets');
-?>
 
     <div class="container">
     <div class="rubrique"> 

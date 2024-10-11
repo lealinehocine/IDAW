@@ -2,14 +2,9 @@
 require_once('template_header.php');
 ?>
 
-<h1>Léa-Line SAAD - CV</h1>
 
-<div class="center">
+<h1>CV</h1>
 
-<?php
-require_once('template_menu.php');
-renderMenuToHTML('cv');
-?>
 
 <div class="container">
 
@@ -38,7 +33,7 @@ renderMenuToHTML('cv');
     </div>
 </div>
 
-</div>
+
 <?php
 require_once('template_footer.php');
 ?>
