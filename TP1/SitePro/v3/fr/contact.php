@@ -10,6 +10,7 @@ require_once('template_header.php');
 
 <p>Adresse mail : lea-line.saad@etu.imt-nord-europe.fr</p>
 <p>Téléphone : 06 95 75 59 67</p>
+<p>LinkedIn : www.linkedin.com/in/léa-line-saad-355975293</p>
 
 
 

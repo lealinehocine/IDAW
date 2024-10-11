@@ -11,7 +11,7 @@
 
 
 <?php
-    function renderMenuToHTML($currentPageId) {
+    function renderMenuToHTML($currentPageId, $currentLang) {
         // un tableau qui d\'efinit la structure du site
     $mymenu = array(
         // idPage titre
@@ -24,7 +24,7 @@
         <ul>");
         foreach($mymenu as $pageId => $pageParameters) {
 
-            $url = "http://localhost/IDAW/TP1/SitePro/v3/index.php?page=" . $pageId;
+            $url = "http://localhost/IDAW/TP1/SitePro/v3/index.php?page=" . $pageId . "&lang=" . $currentLang;
             if($pageId == $currentPageId){
             echo ("<li id=\"currentpage\"><a href=\"$url\">$pageParameters[0]</a></li>");}
             else{
