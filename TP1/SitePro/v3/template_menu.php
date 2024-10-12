@@ -1,23 +1,11 @@
-<!-- <nav class="menu">
-    <ul>
-    <li><a href="index.php">Accueil</a></li>
-    <li><a href="cv.php">CV</a></li>
-    <li><a href="projets.php">Hobbies</a></li>
-    <li><a href="infos-technique.php">Infos techniques</a></li> 
-    </ul>
-</nav>
--->
-
-
-
 <?php
     function renderMenuToHTML($currentPageId, $currentLang) {
         // un tableau qui d\'efinit la structure du site
     $mymenu = array(
         // idPage titre
         'accueil' => array( 'Accueil' ), // à la clé index j'associe Accueil...
-        'cv' => array( 'Cv' ),
-        'projets' => array('Mes Hobbies'),
+        'cv' => array( 'CV' ),
+        'projets' => array('Hobbies'),
         'contact'=> array('Contact')
         );
         echo ("<nav class=\"menu\">

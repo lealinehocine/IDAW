@@ -11,7 +11,7 @@ require_once('template_header.php');
     <div class="rubrique"> 
     <h1>Association Involvement</h1>
     <h3>Arts Committee (Bureau Des Arts), IMT Nord Europe - Academic Year 2024-2025</h3>
-    <p>Head of the "pôle MDE""</p>
+    <p>Head of the "pôle MDE"</p>
     </div>
 
     <div class="rubrique"> 
