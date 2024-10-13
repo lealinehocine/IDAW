@@ -12,6 +12,16 @@ else{
         $currentStyle = "style1";
     }
 }
+
+
+session_start(); 
+
+
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php"); 
+    exit();
+}
+
 ?>
 
 
@@ -25,6 +35,9 @@ else{
 </head>
 <body>
 
+<h1>Profil de l'utilisateur</h1>
+<p><?php echo "Nom d'utilisateur : " . htmlspecialchars($_SESSION['user']); ?></p>
+
 <form id="style_form" action="index.php" method="GET">
 <select name="css">
 <option value="style1" <?php if($currentStyle == "style1") echo "selected";?> >style1</option>
@@ -32,6 +45,8 @@ else{
 </select>
 <input type="submit" value="Appliquer" />
 </form>
+
+<?php echo "<a href=\"logout.php\">Se déconnecter</a>"; ?>
 
 </body>
 </html>
