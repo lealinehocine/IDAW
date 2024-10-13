@@ -12,16 +12,23 @@ require_once('template_header.php');
     <h1>Investissement associatif</h1>
     <h3>Bureau Des Arts IMT Nord Europe - Année scolaire 2024-2025</h3>
     <p>Responsable du pôle Maison Des Elèves</p>
+
     </div>
 
-    <div class="rubrique"> 
+        <div class="rubrique"> 
     <h1>Centres d'intérêt</h1>
-    <p>Guitare, chant, cinéma</p>
-    </div>
+    <ul><li>Guitare</li>
+    <li>Chant</li>
+    <li>Cinéma</li>
+    </ul>
+        </div>
 
     <div class="rubrique"> 
-    <h1>Sport</h1>
-    <p>Boxe anglaise, natation, course à pieds</p>
+    <h1>Sports</h1>
+    <ul><li>Boxe anglaise</li>
+    <li>Natation</li>
+    <li>Course à pieds</li>
+    </ul>
     </div>
 
 </div>

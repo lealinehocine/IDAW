@@ -15,13 +15,21 @@ require_once('template_header.php');
     </div>
 
     <div class="rubrique"> 
-    <h1>Hobbies</h1>
-    <p>Guitar, singing, cinema</p>
+    <h1>Interests</h1>
+    <ul><li>Guitar</li>
+    <li>Singing</li>
+    <li>Cinema</li>
+    </ul>
+
     </div>
 
     <div class="rubrique"> 
     <h1>Sports</h1>
-    <p>Boxing, swimming, running</p>
+    <ul><li>Boxing</li>
+    <li>Swimming</li>
+    <li>Running</li>
+    </ul>
+
     </div>
 
 </div>

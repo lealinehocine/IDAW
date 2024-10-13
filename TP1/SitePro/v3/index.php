@@ -14,6 +14,7 @@
 ?>
     <header class="bandeau_haut">
         <h1>Léa-Line SAAD</h1> 
+        <img class="photo" src="../photo.png" alt="Photo CV"  height="350px" width="auto" >
 
         <?php
         if($currentLang=="fr"){

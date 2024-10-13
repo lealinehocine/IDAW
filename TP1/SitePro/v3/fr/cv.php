@@ -10,8 +10,13 @@ require_once('template_header.php');
 
     <div class="rubrique">
     <h1>Expériences professionnelles</h1>
-    <h3>Stagiaire ingénieure logiciel UX - Mai 2024 à Août 2024</h3>
-    <p>Ergosign GmbH,Saarbrück, Allemagne</p>
+    <h3>Ergosign GmbH,Saarbrück, Allemagne - Mai 2024 à Août 2024</h3>
+    <p>Stagiaire ingénieure logiciel UX </p>
+    <ul>
+    <li>Stage de développement web Front-End</li>
+    <li>Découverte de langages : HTML, CSS, JavaScript, React, travail avec Storybook et TypeScript</li>
+    <li>Travail sur un projet pour un client avec une équipe de développement, via GitLab </li>
+    </ul>
     </div>
 
     <div class="rubrique">
@@ -30,6 +35,11 @@ require_once('template_header.php');
     <h1>Projets scolaires</h1>
     <h3>Projet ouvert de première année de cycle ingénieur - Octobre 2023 à avril 2024</h3>
     <p>Cheffe du projet Sport Pour Tous </p>
+    <ul>
+        <li>Coordination d’une équipe de 6 étudiants au cours des 500h dédiées</li>
+        <li>Interventions en lien avec l’ingénierie et le handisport auprès de collégiens de 4e et 3e</li>
+        <li>Conception d’un objet permettant de faciliter le quotidien de personnes en fauteuil roulant</li>
+    </ul>
     </div>
 </div>
 

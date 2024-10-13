@@ -5,6 +5,7 @@
         // idPage titre
         'accueil' => array( 'Accueil' ), // à la clé index j'associe Accueil...
         'cv' => array( 'CV' ),
+        'competences' => array('Compétences'),
         'projets' => array('Hobbies'),
         'contact'=> array('Contact')
         );

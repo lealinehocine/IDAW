@@ -10,8 +10,14 @@ require_once('template_header.php');
 
     <div class="rubrique">
     <h1>Professional Experiences</h1>
-    <h3>Software Engineering Intern UX - May 2024 to August 2024</h3>
-    <p>Ergosign GmbH, Saarbrücken, Germany</p>
+    <h3>Ergosign GmbH, Saarbrücken, Germany - May 2024 to August 2024</h3>
+    <p>Software Engineering Intern UX</p>
+    <ul>
+    <li>Front-End Web Development Internship</li>
+    <li>Introduction to languages: HTML, CSS, JavaScript, React, working with Storybook and TypeScript</li>
+    <li>Worked on a project for a client with a development team, using GitLab</li>
+</ul>
+
     </div>
 
     <div class="rubrique">
@@ -29,7 +35,13 @@ require_once('template_header.php');
     <div class="rubrique">
     <h1>School Projects</h1>
     <h3>First-year Engineering Open Project - October 2023 to April 2024</h3>
-    <p>Project Manager for "Sport Pour Tous"  </p>
+    <p>Project Manager for "Sport Pour Tous" </p>
+    <ul>
+    <li>Coordination of a team of 6 students over 500 hours dedicated</li>
+    <li>Interventions related to engineering and adapted sports with 8th and 9th grade students</li>
+    <li>Design of an object to facilitate the daily lives of people in wheelchairs</li>
+</ul>
+
     </div>
 </div>
 

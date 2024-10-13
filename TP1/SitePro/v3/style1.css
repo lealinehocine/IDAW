@@ -62,3 +62,10 @@ h1, .bottom{
 #currentpage{
     background-color: rgb(68, 68, 224);
 }
+
+.photo{
+    height:350px ;
+    width:auto;
+    border-radius: 50%; /* Forme circulaire */
+    overflow: hidden; /* Cache les parties de l'image qui débordent */
+}
