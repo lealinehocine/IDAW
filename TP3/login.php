@@ -1,4 +1,5 @@
-<form id="login_form" action="connected.php" method="GET">
+<form id="login_form" action="connected.php" method="POST"> 
+<!-- on modifie la méthode GET en POST pour protéger les données sensibles -->
 <table>
 <tr>
 <th>Login :</th>
