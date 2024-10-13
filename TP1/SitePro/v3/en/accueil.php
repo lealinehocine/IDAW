@@ -13,7 +13,6 @@ I am looking for a 4-month internship starting on May 12, 2025,<br>
 in the field of web and software development.
 <br> I am open to international mobility.</p>
 
-<!--Mettre un visuel-->
 </div>
 </div>
 <?php

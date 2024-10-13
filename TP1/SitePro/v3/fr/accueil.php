@@ -13,7 +13,7 @@ require_once('template_header.php');
     <br>dans le domaine du développement web et logiciel.
     <br>Je suis ouverte à la mobilité internationale.</p>
 
-<!--Mettre un visuel-->
+
 </div>
 </div>
 <?php

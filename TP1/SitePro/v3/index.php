@@ -4,17 +4,21 @@
 
     $defaultLang = 'fr'; 
     $currentLang = isset($_GET['lang']) ? $_GET['lang'] : $defaultLang;
-
-
-
     $currentPageId = 'accueil';
     if(isset($_GET['page'])) {
     $currentPageId = $_GET['page'];
 }
 ?>
+
+<?php
+renderMenuToHTML($currentPageId, $currentLang);
+?>
+
+<div class="center">
     <header class="bandeau_haut">
-        <h1>Léa-Line SAAD</h1> 
-        <img class="photo" src="../photo.png" alt="Photo CV"  height="350px" width="auto" >
+
+
+        <h1>Léa-Line SAAD</h1>
 
         <?php
         if($currentLang=="fr"){
@@ -26,11 +30,6 @@
 
     </header>
 
-    <div class="center">
-
-<?php
-renderMenuToHTML($currentPageId, $currentLang);
-?>
 
 <section class="corps">
 <?php
@@ -47,3 +46,5 @@ require_once("error.php");
 <?php
 require_once('template_footer.php');
 ?>
+</div>
+

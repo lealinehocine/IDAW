@@ -7,27 +7,37 @@ require_once('template_header.php');
 
 <div class="container">
 
+<div class="rubrique">
 <h2>Langues</h2>
-<p>Français : Langue maternelle</p>
-<p>Anglais : Niveau C1, TOEIC 975/990</p>
-<p>Allemand : Niveau C1, ABIBAC</p>
+<ul>
+<li>Français : Langue maternelle</li>
+<li>Anglais : Niveau C1, TOEIC 975/990</li>
+<li>Allemand : Niveau C1, ABIBAC</li>
+</ul>
+</div>
 
-
+<div class="rubrique">
 <h2>Code</h2>
 <ul>
 <li>HTML, CSS : bonne maîtrise</li>
 <li>Python, SQL, Java, JavaScript , Git : maîtrise moyenne</>
 <li>PHP, React : notions, niveau débutant</li>
 </ul>
+</div>
 
+<div class="rubrique">
 <h2>Autres logiciels</h2>
-<p>Microsoft Office</p>
-<p>Suite Adobe</p>
-<p>Canva</p>
+<ul>
+<li>Microsoft Office</li>
+<li>Suite Adobe</li>
+<li>Canva</li>
+</ul>
+</div>
 
+<div class="rubrique">
 <h2>Autre </h2>
 <p>MOOC Gestion de projet</p>
-
+</div>
 
 
 </div>
