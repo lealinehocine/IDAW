@@ -1,0 +1,39 @@
+<?php
+if (isset($_GET["css"])){
+    $selectedstyle = $_GET["css"];
+    setcookie("style", $selectedstyle, time()+3600);
+    $currentStyle = $selectedstyle;
+}
+else{
+        if (isset($_COOKIE["style"])) {
+        $currentStyle = $_COOKIE["style"];
+    } else {
+        //par défaut
+        $currentStyle = "style1";
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="<?php echo $currentStyle; ?>.css">
+</head>
+<body>
+
+<form id="style_form" action="index.php" method="GET">
+<select name="css">
+<option value="style1" <?php if($currentStyle == "style1") echo "selected";?> >style1</option>
+<option value="style2" <?php if($currentStyle == "style2") echo "selected";?>>style2</option>
+</select>
+<input type="submit" value="Appliquer" />
+</form>
+
+</body>
+</html>
+
+
