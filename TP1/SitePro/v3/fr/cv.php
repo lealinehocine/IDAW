@@ -43,7 +43,3 @@ require_once('template_header.php');
     </div>
 </div>
 
-
-<?php
-require_once('template_footer.php');
-?>
