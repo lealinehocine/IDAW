@@ -17,7 +17,7 @@
         <ul>");
         foreach($mymenu as $pageId => $pageParameters) {
 
-            $url = "http://localhost/IDAW/TP1/SitePro/v3/index.php?page=" . $pageId . "&lang=" . $currentLang;
+            $url = "index.php?page=" . $pageId . "&lang=" . $currentLang;
             if($pageId == $currentPageId){
             echo ("<li class=\"li_menu\" id=\"currentpage\"><a href=\"$url\">$pageParameters[0]</a></li>");}
             else{
