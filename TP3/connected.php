@@ -12,7 +12,7 @@
 
 
 
-<!--Partie2:  autre version : le login et le password ne se retrouvent plus dans l'URL après authentification : plus "sécurisé" à priori-->
+<!--Partie2:  autre version : le login et le password ne se retrouvent plus dans l'URL après authentification : mais sont visibles si on inspecte les requêtes : pas mieux-->
 
 
 <?php

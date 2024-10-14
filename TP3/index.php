@@ -43,7 +43,10 @@ if (!isset($_SESSION['user'])) {
 <option value="style1" <?php if($currentStyle == "style1") echo "selected";?> >style1</option>
 <option value="style2" <?php if($currentStyle == "style2") echo "selected";?>>style2</option>
 </select>
-<input type="submit" value="Appliquer" />
+<input type="submit" value="Appliquer" /> 
+<!-- submit construit une requête GET -->
+
+
 </form>
 
 <?php echo "<a href=\"logout.php\">Se déconnecter</a>"; ?>
