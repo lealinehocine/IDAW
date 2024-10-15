@@ -45,7 +45,9 @@ INSERT INTO `users` (`id`, `name`, `email`) VALUES
 (3, 'user3', 'user3.test@gmail.com'),
 (4, 'riri', 'riri@disney.com'),
 (5, 'fifi', 'fifi@disney.com'),
-(6, 'loulou', 'loulou@disney.com');
+(6, 'loulou', 'loulou@disney.com'),
+(7, 'guilhem', 'guilhem.maire@disney.com'); /*On rajoute une donnée pour vérifier que cela fonctionne bien*/
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
