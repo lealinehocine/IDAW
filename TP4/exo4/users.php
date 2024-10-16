@@ -121,7 +121,7 @@ $pdo = null;
     <label for="email">Email :</label>
     <input type="email" name="email" value="<?php echo isset($userToEdit->email) ? $userToEdit->email : ''; ?>" required>
     <br>
-    <button type="submit" name="submit">Ajouter</button>
+    <button type="submit" name="submit"><?php echo isset($userToEdit) ? 'Modifier' : 'Ajouter'; ?></button>
 </form>
 
 
