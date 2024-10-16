@@ -39,11 +39,11 @@ renderMenuToHTML($currentPageId, $currentLang);
     else
     require_once("error.php");
     ?>
-</section>
+    </section>
 
+</div>
 
-    </div>
 <?php
 require_once('template_footer.php');
-
+?>
 

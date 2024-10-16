@@ -15,6 +15,7 @@ in the field of web and software development.
 
 </div>
 </div>
+
 <?php
 require_once('template_footer.php');
 ?>
