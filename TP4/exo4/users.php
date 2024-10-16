@@ -35,25 +35,34 @@ $users = $request->fetchAll(PDO::FETCH_OBJ);
 
 
 if (isset($_POST['name']) && $_POST['email']) {
-    // $id = $_POST['id'];
+    $id = $_POST['id'];
     $name = $_POST['name'];
     $email = $_POST['email'];
 
-    // if ($id) {
+    if ($id) {
         // Si l'utilisateur existe, on peut modifier
-        // $request = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
-        // $request->execute([$name, $email, $id]);
-    // } else {
+        $request = $pdo->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
+        $request->execute([$name, $email, $id]);
+    } else {
         // Sinon il faut le créer
         $request = $pdo->prepare("INSERT INTO users (name, email) VALUES (?, ?)");
         $request->execute([$name, $email]);
-    // }
+    }
 
     header('Location:' . $_SERVER['PHP_SELF']);
     exit;
 }
 
 
+
+
+// Récupération des infos de l'utilisateur à modifier
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
+    $request = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+    $request->execute([$id]);
+    $userToEdit = $request->fetch(PDO::FETCH_OBJ);
+}
 
 /*** close the database connection ***/
 $pdo = null;
@@ -93,34 +102,24 @@ $pdo = null;
 
 
 
-<h1>Ajout d'utilisateur</h1>
+<h1><?php echo isset($userToEdit) ? 'Modifier' : 'Ajouter'; ?> un utilisateur</h1>
 
 
 
 
-<?php
-// Si l'utilisateur est en mode édition, on récupère ses infos
-// if (isset($_POST['id'])) {
-//     $id = $_POST['id'];
-//     $request = $pdo->prepare("SELECT * FROM users WHERE id = ?");
-//     $request->execute([$id]);
-//     $user = $request->fetch(PDO::FETCH_OBJ);
-// }
-?>
-
-<!-- Form pour ajouter des champs -->
+<!-- Form pour ajouter/modifier des champs -->
 
 
 
 <form action="" method="POST">
     <!-- <label for="id">ID :</label> -->
-    <input type="hidden" name="id" value="<?php echo isset($user->id) ? $user->id : ''; ?>">
+    <input type="hidden" name="id" value="<?php echo isset($userToEdit->id) ? $userToEdit->id : ''; ?>">
     <br>
     <label for="name">Nom :</label>
-    <input type="text" name="name" value="<?php echo isset($user->name) ? $user->name : ''; ?>" required>
+    <input type="text" name="name" value="<?php echo isset($userToEdit->name) ? $userToEdit->name : ''; ?>" required>
     <br>
     <label for="email">Email :</label>
-    <input type="email" name="email" value="<?php echo isset($user->email) ? $user->email : ''; ?>" required>
+    <input type="email" name="email" value="<?php echo isset($userToEdit->email) ? $userToEdit->email : ''; ?>" required>
     <br>
     <button type="submit" name="submit">Ajouter</button>
 </form>
