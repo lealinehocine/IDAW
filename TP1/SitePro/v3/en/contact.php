@@ -1,8 +1,3 @@
-<?php
-require_once('template_header.php');
-?>
-
-
 <h1>Contact</h1>
 
 <div class="container">
@@ -17,6 +12,3 @@ require_once('template_header.php');
 </div>
 
 
-<?php
-require_once('template_footer.php');
-?>

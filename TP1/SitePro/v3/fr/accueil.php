@@ -1,10 +1,6 @@
-<?php
-require_once('template_header.php');
-?>
-
 <h1>A propos de moi</h1>
 
-    <div class="center">
+
 
 <div class="description">
 <p>Ceci est mon site professionnel. 
@@ -15,7 +11,4 @@ require_once('template_header.php');
 
 
 </div>
-</div>
-<?php
-require_once('template_footer.php');
-?>
+

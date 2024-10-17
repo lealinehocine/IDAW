@@ -1,8 +1,3 @@
-<?php
-require_once('template_header.php');
-?>
-
-
 <h1>CV</h1>
 
 
@@ -45,7 +40,3 @@ require_once('template_header.php');
     </div>
 </div>
 
-
-<?php
-require_once('template_footer.php');
-?>

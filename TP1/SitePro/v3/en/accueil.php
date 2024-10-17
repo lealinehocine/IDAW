@@ -1,10 +1,6 @@
-<?php
-require_once('template_header.php');
-?>
-
 <h1>About me</h1>
 
-    <div class="center">
+
 
 <div class="description">
 <p>This is my professional website.<br>
@@ -14,8 +10,4 @@ in the field of web and software development.
 <br> I am open to international mobility.</p>
 
 </div>
-</div>
 
-<?php
-require_once('template_footer.php');
-?>
