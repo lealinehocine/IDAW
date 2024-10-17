@@ -1,6 +1,6 @@
 <?php
     require_once('template_header.php');
-    require_once("template_menu.php");
+
 
     $defaultLang = 'fr'; 
     $currentLang = isset($_GET['lang']) ? $_GET['lang'] : $defaultLang;
@@ -10,9 +10,12 @@
 }
 ?>
 
-<?php
-renderMenuToHTML($currentPageId, $currentLang);
-?>
+<div class="ensemble">
+
+<?php     require_once("template_menu.php");
+
+renderMenuToHTML($currentPageId, $currentLang); ?>
+
 
 <div class="center">
     <header class="bandeau_haut">
@@ -40,6 +43,8 @@ renderMenuToHTML($currentPageId, $currentLang);
     require_once("error.php");
     ?>
     </section>
+
+</div>
 
 </div>
 

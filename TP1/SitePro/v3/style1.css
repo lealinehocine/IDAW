@@ -1,5 +1,6 @@
 body{
 display: flex;
+flex-direction: column;
 margin: 0;
 justify-content: space-between;
 height: 100vh;
@@ -8,6 +9,10 @@ font-family: 'Bookman', serif;
 /* 
 font-family: "Saira Extra Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
 
+}
+
+.ensemble{
+    display: flex;
 }
 
 .center{
