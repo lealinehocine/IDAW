@@ -88,23 +88,98 @@
         let aimeWeb = $("#inputWeb").val();
         let remarques = $("#inputRem").val();
 
-        $('#delete').click(function(event) {
-        // A FAIRE
-        });
-
-        $('#edit').click(function(event) {
-        // A FAIRE
-        });
-
 
         if(nom){
-        $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${dateDeNaissance}</td><td>${aimeWeb}</td><td>${remarques}</td><td><button id="edit">Edit</button></td><td><button id="delete">Delete</button></td></tr>`);
+            $.ajax({
+                    url:'../../TP4/exo5/users.php',
+                    type: 'POST',
+                    data: {
+                        name: nom,
+                        email: prenom,  // Utilisation de prénom à la place de l'email
+                    },
+                    success: function(response) {
+                        // Une fois l'utilisateur ajouté, on l'affiche dans le tableau
+                        $("#studentsTableBody").append(`
+                            <tr>
+                                <td>${nom}</td>
+                                <td>${prenom}</td>
+                                <td>${dateDeNaissance}</td>
+                                <td>${aimeWeb}</td>
+                                <td>${remarques}</td>
+                                <td>
+                                    <button class="edit" data-id="${response.id}">Edit</button>
+                                    <button class="delete" data-id="${response.id}">Delete</button>
+                                </td>
+                            </tr>
+                        `);
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Erreur lors de l'ajout de l'utilisateur : " + error);
+                    }
+                });
+            }
         }
+
+        // Gestion de la suppression d'un utilisateur : NE FONCTIONNE PAS
+        $('#studentsTableBody').on('click', '.delete', function() {
+            let userId = $(this).data('id');
+            
+            $.ajax({
+                url:'../../TP4/exo5/users.php',
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: userId }),
+                success: function(response) {
+                    alert("Utilisateur supprimé.");
+                    location.reload();  // Recharger la page pour mettre à jour la liste
+                },
+                error: function(xhr, status, error) {
+                    alert("Erreur lors de la suppression : " + error);
+                }
+            });
+        });
+
+        // Gestion de la modification d'un utilisateur : A CORRIGER car ne fonctionne pas
+        $('#studentsTableBody').on('click', '.edit', function() {
+            let userId = $(this).data('id');
+            let newNom = prompt("Entrez le nouveau nom de l'utilisateur :");
+            let newPrenom = prompt("Entrez le nouveau prénom de l'utilisateur :");
+
+            if (newNom && newPrenom) {
+                $.ajax({
+                    url:'../../TP4/exo5/users.php',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    data: JSON.stringify({
+                        id: userId,
+                        name: newNom,
+                        email: newPrenom  // Utilisation de prénom pour l'email
+                    }),
+                    success: function(response) {
+                        try {
+            // Tente de parser la réponse en JSON
+            let jsonResponse = JSON.parse(response);
+            alert("Action réussie : " + jsonResponse.message);
+        } catch (e) {
+            // Si la réponse n'est pas du JSON, tu peux l'afficher ou la logguer pour inspection
+            alert("Réponse texte : " + response);
+        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Erreur lors de la modification : " + error);
+                    }
+                });
+            }
+        });
+
+        // $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${dateDeNaissance}</td><td>${aimeWeb}</td><td>${remarques}</td><td><button id="edit">Edit</button></td><td><button id="delete">Delete</button></td></tr>`);
+        // }
         // else{
         //     return("Le champ Nom est obligatoire.");
         // }
 
-    }
+    
 </script>
 </body>
 </html>
