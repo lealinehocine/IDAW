@@ -51,7 +51,7 @@ function getInfoById($db,$id){
 
 function delete_user($db, $id){
     $user = getInfoById($db, $id);
-    print_r($user);
+    //print_r($user); // cette ligne pose problème dans le retour de la requête car elle envoie du HTML qui ne sera pas encodé dans le corps de la requête HTTP
     $requete = $db->query("DELETE FROM users WHERE id='$id'");
     return "The user : ".$user->name." with email : ".$user->email." has been deleted";
     }
