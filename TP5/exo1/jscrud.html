@@ -51,7 +51,8 @@
     <div class="form-group row">
         <label for="inputDate" class="col-sm-2 col-form-label">Date de naissance</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="inputDate" >
+            <input type="text" class="form-control" id="inputDate" > 
+            <!-- type date possible aussi -->
         </div>
     </div>
 
@@ -59,6 +60,7 @@
         <label for="inputWeb" class="col-sm-2 col-form-label">Aime le cours Web</label>
         <div class="col-sm-3">
             <input type="text" class="form-control" id="inputWeb" >
+            <!-- type checkbox possible aussi -->
         </div>
     </div>
 
@@ -99,6 +101,8 @@
                                         <td><button id="edit" onclick="editUser(this)">Edit</button></td>
                                         <td><button id="delete" onclick="deleteUser(this)">Delete</button></td>
                                         </tr>`);
+                }else{
+                    alert("Le nom est obligatoire");
                 }
             }
 
