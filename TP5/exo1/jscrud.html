@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="fr">
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <title>tabletest</title>
-    <style>
-    body{ margin-top: 5em; }
-    .table {
-        margin-top: 100px;
-        margin-bottom: 100px;
-    }
-</style>
-</head>
+    <head>
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <title>tabletest</title>
+        <style>
+        body{ margin-top: 5em; }
+        .table {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+        </style>
+    </head>
 
 <body>
 <table class="table">
@@ -82,104 +82,67 @@
     function onFormSubmit() {
     // prevent the form to be sent to the server
         event.preventDefault();
+
         let nom = $("#inputNom").val();
         let prenom = $("#inputPrenom").val();
         let dateDeNaissance = $("#inputDate").val();
         let aimeWeb = $("#inputWeb").val();
         let remarques = $("#inputRem").val();
 
-
         if(nom){
-            $.ajax({
-                    url:'../../TP4/exo5/users.php',
-                    type: 'POST',
-                    data: {
-                        name: nom,
-                        email: prenom,  // Utilisation de prénom à la place de l'email
-                    },
-                    success: function(response) {
-                        // Une fois l'utilisateur ajouté, on l'affiche dans le tableau
-                        $("#studentsTableBody").append(`
-                            <tr>
-                                <td>${nom}</td>
-                                <td>${prenom}</td>
-                                <td>${dateDeNaissance}</td>
-                                <td>${aimeWeb}</td>
-                                <td>${remarques}</td>
-                                <td>
-                                    <button class="edit" data-id="${response.id}">Edit</button>
-                                    <button class="delete" data-id="${response.id}">Delete</button>
-                                </td>
-                            </tr>
-                        `);
-                    },
-                    error: function(xhr, status, error) {
-                        alert("Erreur lors de l'ajout de l'utilisateur : " + error);
-                    }
-                });
-            }
-        }
-
-        // Gestion de la suppression d'un utilisateur : NE FONCTIONNE PAS
-        $('#studentsTableBody').on('click', '.delete', function() {
-            let userId = $(this).data('id');
-            
-            $.ajax({
-                url:'../../TP4/exo5/users.php',
-                type: 'DELETE',
-                contentType: 'application/json',
-                data: JSON.stringify({ id: userId }),
-                success: function(response) {
-                    alert("Utilisateur supprimé.");
-                    location.reload();  // Recharger la page pour mettre à jour la liste
-                },
-                error: function(xhr, status, error) {
-                    alert("Erreur lors de la suppression : " + error);
+        $("#studentsTableBody").append(`<tr>
+                                        <td>${nom}</td>
+                                        <td>${prenom}</td>
+                                        <td>${dateDeNaissance}</td>
+                                        <td>${aimeWeb}</td>
+                                        <td>${remarques}</td>
+                                        <td><button id="edit" onclick="editUser(this)">Edit</button></td>
+                                        <td><button id="delete" onclick="deleteUser(this)">Delete</button></td>
+                                        </tr>`);
                 }
-            });
-        });
-
-        // Gestion de la modification d'un utilisateur : A CORRIGER car ne fonctionne pas
-        $('#studentsTableBody').on('click', '.edit', function() {
-            let userId = $(this).data('id');
-            let newNom = prompt("Entrez le nouveau nom de l'utilisateur :");
-            let newPrenom = prompt("Entrez le nouveau prénom de l'utilisateur :");
-
-            if (newNom && newPrenom) {
-                $.ajax({
-                    url:'../../TP4/exo5/users.php',
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    dataType: 'text',
-                    data: JSON.stringify({
-                        id: userId,
-                        name: newNom,
-                        email: newPrenom  // Utilisation de prénom pour l'email
-                    }),
-                    success: function(response) {
-                        try {
-            // Tente de parser la réponse en JSON
-            let jsonResponse = JSON.parse(response);
-            alert("Action réussie : " + jsonResponse.message);
-        } catch (e) {
-            // Si la réponse n'est pas du JSON, tu peux l'afficher ou la logguer pour inspection
-            alert("Réponse texte : " + response);
-        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert("Erreur lors de la modification : " + error);
-                    }
-                });
             }
-        });
 
-        // $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${dateDeNaissance}</td><td>${aimeWeb}</td><td>${remarques}</td><td><button id="edit">Edit</button></td><td><button id="delete">Delete</button></td></tr>`);
-        // }
-        // else{
-        //     return("Le champ Nom est obligatoire.");
-        // }
+        function deleteUser(button){
+                $(button).closest('tr').remove();
+        }
 
-    
+        function editUser(button) {
+            let row = $(button).closest('tr'); 
+            let cells = row.find('td'); 
+
+            // Remplace chaque cellule par un champ input contenant la valeur actuelle
+            cells.eq(0).html(`<input type='text' value='${cells.eq(0).text()}' />`);
+            cells.eq(1).html(`<input type='text' value='${cells.eq(1).text()}' />`);
+            cells.eq(2).html(`<input type='text' value='${cells.eq(2).text()}' />`);
+            cells.eq(3).html(`<input type='text' value='${cells.eq(3).text()}' />`);
+            cells.eq(4).html(`<input type='text' value='${cells.eq(4).text()}' />`);
+
+            // Remplace le bouton "Edit" par "Save"
+            $(button).replaceWith(`<button onclick="saveUser(this)">Save</button>`);
+        }
+
+    function saveUser(button) {
+        let row = $(button).closest('tr'); 
+        let cells = row.find('td');
+
+        // Récupère les valeurs modifiées
+        let nom = cells.eq(0).find('input').val();
+        let prenom = cells.eq(1).find('input').val();
+        let dateDeNaissance = cells.eq(2).find('input').val();
+        let aimeWeb = cells.eq(3).find('input').val();
+        let remarques = cells.eq(4).find('input').val();
+
+        // Remplace les champs input par du texte
+        cells.eq(0).html(nom);
+        cells.eq(1).html(prenom);
+        cells.eq(2).html(dateDeNaissance);
+        cells.eq(3).html(aimeWeb);
+        cells.eq(4).html(remarques);
+
+        // Remplace le bouton "Save" par "Edit"
+        $(button).replaceWith(`<button onclick="editUser(this)">Edit</button>`);
+    }
+
 </script>
 </body>
 </html>
