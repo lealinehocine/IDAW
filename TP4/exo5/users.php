@@ -83,6 +83,7 @@ case 'POST':
 
 
 case 'PUT':
+    setHeaders();
     $parameters = json_decode(file_get_contents('php://input'), true);
 
     if(!isset($parameters["id"]) || !isset($parameters["email"])|| !isset($parameters["name"])  ){
