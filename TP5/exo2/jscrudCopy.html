@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+    <title>tabletest</title>
+    <style>
+    body{ margin-top: 5em; }
+    .table {
+        margin-top: 100px;
+        margin-bottom: 100px;
+    }
+</style>
+</head>
+
+<body>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Nom</th>
+            <th scope="col">Prenom</th>
+            <th scope="col">Date de naissance</th>
+            <th scope="col">Aime le cours Web</th>
+            <th scope="col">Remarques</th>
+            <th scope="col">CRUD</th>
+        </tr>
+
+    </thead>
+<tbody id="studentsTableBody">
+
+</tbody>
+</table>
+
+<form id="addStudentForm" action="" onsubmit="onFormSubmit();">
+    <div class="form-group row">
+        <label for="inputNom" class="col-sm-2 col-form-label">Nom*</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputNom" >
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="inputPrenom" class="col-sm-2 col-form-label">Prénom</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputPrenom" >
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputDate" class="col-sm-2 col-form-label">Date de naissance</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputDate" >
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputWeb" class="col-sm-2 col-form-label">Aime le cours Web</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputWeb" >
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="inputRem" class="col-sm-2 col-form-label">Remarques</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" id="inputRem" >
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <span class="col-sm-2"></span>
+        <div class="col-sm-2">
+            <button type="submit" class="btn btn-primary form-control">Submit</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    function onFormSubmit() {
+    // prevent the form to be sent to the server
+        event.preventDefault();
+        let nom = $("#inputNom").val();
+        let prenom = $("#inputPrenom").val();
+        let dateDeNaissance = $("#inputDate").val();
+        let aimeWeb = $("#inputWeb").val();
+        let remarques = $("#inputRem").val();
+
+
+        if(nom){
+            $.ajax({
+                    url:'../../TP4/exo5/users.php',
+                    type: 'POST',
+                    data: {
+                        name: nom,
+                        email: prenom,  // Utilisation de prénom à la place de l'email
+                    },
+                    success: function(response) {
+                        // Une fois l'utilisateur ajouté, on l'affiche dans le tableau
+                        $("#studentsTableBody").append(`
+                            <tr>
+                                <td>${nom}</td>
+                                <td>${prenom}</td>
+                                <td>${dateDeNaissance}</td>
+                                <td>${aimeWeb}</td>
+                                <td>${remarques}</td>
+                                <td>
+                                    <button class="edit" data-id="${response.id}">Edit</button>
+                                    <button class="delete" data-id="${response.id}">Delete</button>
+                                </td>
+                            </tr>
+                        `);
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Erreur lors de l'ajout de l'utilisateur : " + error);
+                    }
+                });
+            }
+        }
+
+        // Gestion de la suppression d'un utilisateur : NE FONCTIONNE PAS
+        $('#studentsTableBody').on('click', '.delete', function() {
+            let userId = $(this).data('id');
+            
+            $.ajax({
+                url:'../../TP4/exo5/users.php',
+                type: 'DELETE',
+                contentType: 'application/json',
+                data: JSON.stringify({ id: userId }),
+                success: function(response) {
+                    alert("Utilisateur supprimé.");
+                    location.reload();  // Recharger la page pour mettre à jour la liste
+                },
+                error: function(xhr, status, error) {
+                    alert("Erreur lors de la suppression : " + error);
+                }
+            });
+        });
+
+        // Gestion de la modification d'un utilisateur : A CORRIGER car ne fonctionne pas
+        $('#studentsTableBody').on('click', '.edit', function() {
+            let userId = $(this).data('id');
+            let newNom = prompt("Entrez le nouveau nom de l'utilisateur :");
+            let newPrenom = prompt("Entrez le nouveau prénom de l'utilisateur :");
+
+            if (newNom && newPrenom) {
+                $.ajax({
+                    url:'../../TP4/exo5/users.php',
+                    type: 'PUT',
+                    contentType: 'application/json',
+                    dataType: 'text',
+                    data: JSON.stringify({
+                        id: userId,
+                        name: newNom,
+                        email: newPrenom  // Utilisation de prénom pour l'email
+                    }),
+                    success: function(response) {
+                        try {
+            // Tente de parser la réponse en JSON
+            let jsonResponse = JSON.parse(response);
+            alert("Action réussie : " + jsonResponse.message);
+        } catch (e) {
+            // Si la réponse n'est pas du JSON, tu peux l'afficher ou la logguer pour inspection
+            alert("Réponse texte : " + response);
+        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Erreur lors de la modification : " + error);
+                    }
+                });
+            }
+        });
+
+        // $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${dateDeNaissance}</td><td>${aimeWeb}</td><td>${remarques}</td><td><button id="edit">Edit</button></td><td><button id="delete">Delete</button></td></tr>`);
+        // }
+        // else{
+        //     return("Le champ Nom est obligatoire.");
+        // }
+
+    
+</script>
+</body>
+</html>
