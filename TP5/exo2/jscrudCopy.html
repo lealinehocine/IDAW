@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <title>tabletest</title>
+    <title>tabletest2</title>
     <style>
     body{ margin-top: 5em; }
     .table {
@@ -19,13 +19,8 @@
     <thead>
         <tr>
             <th scope="col">Nom</th>
-            <th scope="col">Prenom</th>
-            <th scope="col">Date de naissance</th>
-            <th scope="col">Aime le cours Web</th>
-            <th scope="col">Remarques</th>
-            <th scope="col">CRUD</th>
+            <th scope="col">Email</th>
         </tr>
-
     </thead>
 <tbody id="studentsTableBody">
 
@@ -40,35 +35,12 @@
         </div>
     </div>
 
-
     <div class="form-group row">
-        <label for="inputPrenom" class="col-sm-2 col-form-label">Prénom</label>
+        <label for="inputPrenom" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-3">
-            <input type="text" class="form-control" id="inputPrenom" >
+            <input type="text" class="form-control" id="inputEmail" >
         </div>
     </div>
-
-    <div class="form-group row">
-        <label for="inputDate" class="col-sm-2 col-form-label">Date de naissance</label>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" id="inputDate" >
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputWeb" class="col-sm-2 col-form-label">Aime le cours Web</label>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" id="inputWeb" >
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="inputRem" class="col-sm-2 col-form-label">Remarques</label>
-        <div class="col-sm-3">
-            <input type="text" class="form-control" id="inputRem" >
-        </div>
-    </div>
-
 
     <div class="form-group row">
         <span class="col-sm-2"></span>
@@ -83,10 +55,7 @@
     // prevent the form to be sent to the server
         event.preventDefault();
         let nom = $("#inputNom").val();
-        let prenom = $("#inputPrenom").val();
-        let dateDeNaissance = $("#inputDate").val();
-        let aimeWeb = $("#inputWeb").val();
-        let remarques = $("#inputRem").val();
+        let email = $("#inputEmail").val();
 
 
         if(nom){
@@ -95,20 +64,17 @@
                     type: 'POST',
                     data: {
                         name: nom,
-                        email: prenom,  // Utilisation de prénom à la place de l'email
+                        email: email,  // Utilisation de prénom à la place de l'email
                     },
                     success: function(response) {
                         // Une fois l'utilisateur ajouté, on l'affiche dans le tableau
                         $("#studentsTableBody").append(`
                             <tr>
                                 <td>${nom}</td>
-                                <td>${prenom}</td>
-                                <td>${dateDeNaissance}</td>
-                                <td>${aimeWeb}</td>
-                                <td>${remarques}</td>
+                                <td>${email}</td>
                                 <td>
-                                    <button class="edit" data-id="${response.id}">Edit</button>
-                                    <button class="delete" data-id="${response.id}">Delete</button>
+                                    <button class="edit" data-id="${response.id}" onclick="editUser()">Edit</button>
+                                    <button class="delete" data-id="${response.id}" onclick="deleteUser(${response.id}, this)">Delete</button>
                                 </td>
                             </tr>
                         `);
@@ -120,64 +86,56 @@
             }
         }
 
-        // Gestion de la suppression d'un utilisateur : NE FONCTIONNE PAS
-        $('#studentsTableBody').on('click', '.delete', function() {
-            let userId = $(this).data('id');
-            
+        // Gestion de la suppression d'un utilisateur 
+        function deleteUser(userId, button){
             $.ajax({
-                url:'../../TP4/exo5/users.php',
+                url:'../../TP4/exo5/users.php', // à modifier
                 type: 'DELETE',
                 contentType: 'application/json',
                 data: JSON.stringify({ id: userId }),
                 success: function(response) {
                     alert("Utilisateur supprimé.");
-                    location.reload();  // Recharger la page pour mettre à jour la liste
+                    $(button).closest('tr').remove();
                 },
                 error: function(xhr, status, error) {
                     alert("Erreur lors de la suppression : " + error);
                 }
             });
-        });
+        };
 
-        // Gestion de la modification d'un utilisateur : A CORRIGER car ne fonctionne pas
-        $('#studentsTableBody').on('click', '.edit', function() {
-            let userId = $(this).data('id');
-            let newNom = prompt("Entrez le nouveau nom de l'utilisateur :");
-            let newPrenom = prompt("Entrez le nouveau prénom de l'utilisateur :");
+        // // Gestion de la modification d'un utilisateur : A CORRIGER car ne fonctionne pas
+        // $('#studentsTableBody').on('click', '.edit', function() {
+        //     let userId = $(this).data('id');
+        //     let newNom = prompt("Entrez le nouveau nom de l'utilisateur :");
+        //     let newEmail = prompt("Entrez le nouveau mail de l'utilisateur :");
 
-            if (newNom && newPrenom) {
-                $.ajax({
-                    url:'../../TP4/exo5/users.php',
-                    type: 'PUT',
-                    contentType: 'application/json',
-                    dataType: 'text',
-                    data: JSON.stringify({
-                        id: userId,
-                        name: newNom,
-                        email: newPrenom  // Utilisation de prénom pour l'email
-                    }),
-                    success: function(response) {
-                        try {
-            // Tente de parser la réponse en JSON
-            let jsonResponse = JSON.parse(response);
-            alert("Action réussie : " + jsonResponse.message);
-        } catch (e) {
-            // Si la réponse n'est pas du JSON, tu peux l'afficher ou la logguer pour inspection
-            alert("Réponse texte : " + response);
-        }
-                    },
-                    error: function(xhr, status, error) {
-                        alert("Erreur lors de la modification : " + error);
-                    }
-                });
-            }
-        });
-
-        // $("#studentsTableBody").append(`<tr><td>${nom}</td><td>${prenom}</td><td>${dateDeNaissance}</td><td>${aimeWeb}</td><td>${remarques}</td><td><button id="edit">Edit</button></td><td><button id="delete">Delete</button></td></tr>`);
+        //     if (newNom && newEmail) {
+        //         $.ajax({
+        //             url:'../../TP4/exo5/users.php',
+        //             type: 'PUT',
+        //             contentType: 'application/json',
+        //             dataType: 'text',
+        //             data: JSON.stringify({
+        //                 id: userId,
+        //                 name: newNom,
+        //                 email: newMail  // Utilisation de prénom pour l'email
+        //             }),
+        //             success: function(response) {
+        //                 try {
+        //     // Tente de parser la réponse en JSON
+        //     let jsonResponse = JSON.parse(response);
+        //     alert("Action réussie : " + jsonResponse.message);
+        // } catch (e) {
+        //     // Si la réponse n'est pas du JSON, tu peux l'afficher ou la logguer pour inspection
+        //     alert("Réponse texte : " + response);
         // }
-        // else{
-        //     return("Le champ Nom est obligatoire.");
-        // }
+        //             },
+        //             error: function(xhr, status, error) {
+        //                 alert("Erreur lors de la modification : " + error);
+        //             }
+        //         });
+        //     }
+        // });
 
     
 </script>
