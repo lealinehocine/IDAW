@@ -132,6 +132,10 @@
         let aimeWeb = cells.eq(3).find('input').val();
         let remarques = cells.eq(4).find('input').val();
 
+        if(nom==""){
+            alert("Le nom est obligatoire");
+        }else{
+
         // Remplace les champs input par du texte
         cells.eq(0).html(nom);
         cells.eq(1).html(prenom);
@@ -141,6 +145,7 @@
 
         // Remplace le bouton "Save" par "Edit"
         $(button).replaceWith(`<button onclick="editUser(this)">Edit</button>`);
+        }
     }
 
 </script>
