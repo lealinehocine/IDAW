@@ -51,6 +51,27 @@
 </form>
 
 <script>
+
+//la base doit rester quand je rafraichis la page : à faire
+function onPageLoad(){
+            let requeteTest = $.ajax({
+                url:'../../TP4/exo5/users.php',
+                method:'GET',
+                dataType:'json'
+            });
+            requeteTest.done(function(data){
+                for(let i = 0; i< data.length; i++){
+                    let id = data[i]['id'];
+                    let name = data[i]['name'];
+                    let mail = data[i]['email'];
+                    $("#studentsTableBody").append(`<tr><td>${id}<td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
+                }
+            });
+            requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
+        }
+
+
+
     function onFormSubmit() {
     // prevent the form to be sent to the server
         event.preventDefault();
@@ -73,7 +94,7 @@
                                 <td>${nom}</td>
                                 <td>${email}</td>
                                 <td>
-                                    <button class="edit" data-id="${response.id}" onclick="editUser()">Edit</button>
+                                    <button class="edit" data-id="${response.id}" onclick="editUser(this)">Edit</button>
                                     <button class="delete" data-id="${response.id}" onclick="deleteUser(${response.id}, this)">Delete</button>
                                 </td>
                             </tr>
@@ -102,6 +123,66 @@
                 }
             });
         };
+
+
+        function editUser(button) {
+        let row = button.closest('tr'); 
+        let cells = row.querySelectorAll('td'); 
+
+        // Remplace chaque cellule par un champ input contenant la valeur actuelle
+        cells[0].innerHTML = `<input type='text' value='${cells[0].innerText}' />`;
+        cells[1].innerHTML = `<input type='text' value='${cells[1].innerText}' />`;
+
+        // Remplace le bouton "Edit" par "Save"
+        button.outerHTML = `<button onclick="saveUser(this)">Save</button>`;
+    }
+
+    function saveUser(button) {
+    let row = button.closest('tr');
+    let cells = row.querySelectorAll('td');
+
+    // Récupère les valeurs modifiées
+    let userId = button.getAttribute('data-id') || row.getAttribute('data-id');
+    let newNom = cells[0].querySelector('input').value;
+    let newEmail = cells[1].querySelector('input').value;
+
+    if (!newNom ) {
+        alert("Le nom est obligatoire");
+        return;
+    }
+
+    console.log({
+        id: userId,
+        name: newNom,
+        email: newEmail
+    }); 
+
+    // Requête AJAX pour mettre à jour l'utilisateur en utilisant $.ajax
+    $.ajax({
+        url: '../../TP4/exo5/users.php',
+        type: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            id: userId,
+            name: newNom,
+            email: newEmail
+        }),
+        success: function(response) {
+            alert("Utilisateur modifié avec succès");
+
+            // Remplace les champs input par du texte
+            cells[0].innerHTML = newNom;
+            cells[1].innerHTML = newEmail;
+
+            // Remplace le bouton "Save" par "Edit"
+            button.outerHTML = `<button class="edit" onclick="editUser(this)">Edit</button>`;
+        },
+        error: function(xhr, status, error) {
+            alert("Erreur lors de la modification de l'utilisateur : " + error);
+        }
+    });
+}
+
 
         // // Gestion de la modification d'un utilisateur : A CORRIGER car ne fonctionne pas
         // $('#studentsTableBody').on('click', '.edit', function() {
