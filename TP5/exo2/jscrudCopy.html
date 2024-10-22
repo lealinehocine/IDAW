@@ -1,18 +1,18 @@
 <!doctype html>
 <html lang="fr">
-<head>
-    <meta charset='utf-8'>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <title>tabletest2</title>
-    <style>
-    body{ margin-top: 5em; }
-    .table {
-        margin-top: 100px;
-        margin-bottom: 100px;
-    }
-</style>
-</head>
+    <head>
+        <meta charset='utf-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <title>tabletest2</title>
+        <style>
+        body{ margin-top: 5em; }
+        .table {
+            margin-top: 100px;
+            margin-bottom: 100px;
+        }
+        </style>
+    </head>
 
 <body>
 <table class="table">
@@ -36,7 +36,7 @@
     </div>
 
     <div class="form-group row">
-        <label for="inputPrenom" class="col-sm-2 col-form-label">Email</label>
+        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
         <div class="col-sm-3">
             <input type="text" class="form-control" id="inputEmail" >
         </div>
@@ -53,22 +53,22 @@
 <script>
 
 //la base doit rester quand je rafraichis la page : à faire
-function onPageLoad(){
-            let requeteTest = $.ajax({
-                url:'../../TP4/exo5/users.php',
-                method:'GET',
-                dataType:'json'
-            });
-            requeteTest.done(function(data){
-                for(let i = 0; i< data.length; i++){
-                    let id = data[i]['id'];
-                    let name = data[i]['name'];
-                    let mail = data[i]['email'];
-                    $("#studentsTableBody").append(`<tr><td>${id}<td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
-                }
-            });
-            requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
-        }
+// function onPageLoad(){
+//             let requeteTest = $.ajax({
+//                 url:'../../TP4/exo5/users.php',
+//                 method:'GET',
+//                 dataType:'json'
+//             });
+//             requeteTest.done(function(data){
+//                 for(let i = 0; i< data.length; i++){
+//                     let id = data[i]['id'];
+//                     let name = data[i]['name'];
+//                     let mail = data[i]['email'];
+//                     $("#studentsTableBody").append(`<tr><td>${id}<td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
+//                 }
+//             });
+//             requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
+//         }
 
 
 
@@ -104,6 +104,8 @@ function onPageLoad(){
                         alert("Erreur lors de l'ajout de l'utilisateur : " + error);
                     }
                 });
+            }else{
+                alert("Le nom est obligatoire");
             }
         }
 
@@ -125,16 +127,20 @@ function onPageLoad(){
         };
 
 
+        // Pour modifier un utilisateur
         function editUser(button) {
         let row = button.closest('tr'); 
         let cells = row.querySelectorAll('td'); 
+
+        //console.log(button.getAttribute("data-id"));
+        let idRecup = button.getAttribute("data-id");
 
         // Remplace chaque cellule par un champ input contenant la valeur actuelle
         cells[0].innerHTML = `<input type='text' value='${cells[0].innerText}' />`;
         cells[1].innerHTML = `<input type='text' value='${cells[1].innerText}' />`;
 
         // Remplace le bouton "Edit" par "Save"
-        button.outerHTML = `<button onclick="saveUser(this)">Save</button>`;
+        button.outerHTML = `<button data-id="idRecup" onclick="saveUser(this)">Save</button>`;
     }
 
     function saveUser(button) {
@@ -142,7 +148,7 @@ function onPageLoad(){
     let cells = row.querySelectorAll('td');
 
     // Récupère les valeurs modifiées
-    let userId = button.getAttribute('data-id') || row.getAttribute('data-id');
+    let userId = button.getAttribute("data-id");
     let newNom = cells[0].querySelector('input').value;
     let newEmail = cells[1].querySelector('input').value;
 
@@ -151,6 +157,7 @@ function onPageLoad(){
         return;
     }
 
+    //pour vérifier d'où venait monn erreur
     console.log({
         id: userId,
         name: newNom,
@@ -182,41 +189,6 @@ function onPageLoad(){
         }
     });
 }
-
-
-        // // Gestion de la modification d'un utilisateur : A CORRIGER car ne fonctionne pas
-        // $('#studentsTableBody').on('click', '.edit', function() {
-        //     let userId = $(this).data('id');
-        //     let newNom = prompt("Entrez le nouveau nom de l'utilisateur :");
-        //     let newEmail = prompt("Entrez le nouveau mail de l'utilisateur :");
-
-        //     if (newNom && newEmail) {
-        //         $.ajax({
-        //             url:'../../TP4/exo5/users.php',
-        //             type: 'PUT',
-        //             contentType: 'application/json',
-        //             dataType: 'text',
-        //             data: JSON.stringify({
-        //                 id: userId,
-        //                 name: newNom,
-        //                 email: newMail  // Utilisation de prénom pour l'email
-        //             }),
-        //             success: function(response) {
-        //                 try {
-        //     // Tente de parser la réponse en JSON
-        //     let jsonResponse = JSON.parse(response);
-        //     alert("Action réussie : " + jsonResponse.message);
-        // } catch (e) {
-        //     // Si la réponse n'est pas du JSON, tu peux l'afficher ou la logguer pour inspection
-        //     alert("Réponse texte : " + response);
-        // }
-        //             },
-        //             error: function(xhr, status, error) {
-        //                 alert("Erreur lors de la modification : " + error);
-        //             }
-        //         });
-        //     }
-        // });
 
     
 </script>
