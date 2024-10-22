@@ -52,25 +52,24 @@
 
 <script>
 
-//la base doit rester quand je rafraichis la page : à faire
-// function onPageLoad(){
-//             let requeteTest = $.ajax({
-//                 url:'../../TP4/exo5/users.php',
-//                 method:'GET',
-//                 dataType:'json'
-//             });
-//             requeteTest.done(function(data){
-//                 for(let i = 0; i< data.length; i++){
-//                     let id = data[i]['id'];
-//                     let name = data[i]['name'];
-//                     let mail = data[i]['email'];
-//                     $("#studentsTableBody").append(`<tr><td>${id}<td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
-//                 }
-//             });
-//             requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
-//         }
+//les utilisateurs crées doivent rester quand je rafraichis la page : à faire
+function onPageLoad(){
+            let requeteTest = $.ajax({
+                url:'../../TP4/exo5/users.php',
+                method:'GET',
+                dataType:'json'
+            });             requeteTest.done(function(data){
+                for(let i = 0; i< data.length; i++){
+                    let id = data[i]['id'];
+                    let name = data[i]['name'];
+                    let mail = data[i]['email'];
+                    $("#studentsTableBody").append(`<tr><td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
+                }
+            });
+            requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
+        }
 
-
+ //   onPageLoad();
 
     function onFormSubmit() {
     // prevent the form to be sent to the server
@@ -140,8 +139,8 @@
         cells[1].innerHTML = `<input type='text' value='${cells[1].innerText}' />`;
 
         // Remplace le bouton "Edit" par "Save"
-        button.outerHTML = `<button data-id="idRecup" onclick="saveUser(this)">Save</button>`;
-    }
+        button.outerHTML = `<button data-id="${idRecup}" onclick="saveUser(this)">Save</button>`;
+        }
 
     function saveUser(button) {
     let row = button.closest('tr');
@@ -157,12 +156,12 @@
         return;
     }
 
-    //pour vérifier d'où venait monn erreur
-    console.log({
-        id: userId,
-        name: newNom,
-        email: newEmail
-    }); 
+//pour vérifier d'où venait mon erreur
+console.log({
+    id: userId,
+    name: newNom,
+    email: newEmail
+}); 
 
     // Requête AJAX pour mettre à jour l'utilisateur en utilisant $.ajax
     $.ajax({
@@ -172,7 +171,7 @@
         data: JSON.stringify({
             id: userId,
             name: newNom,
-            email: newEmail
+            email: newEmail,
         }),
         success: function(response) {
             alert("Utilisateur modifié avec succès");
