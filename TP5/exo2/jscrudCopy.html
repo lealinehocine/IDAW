@@ -61,21 +61,22 @@ let prefix_api = "http://localhost/IDAW/TP4/exo5/";
 
 $(document).ready(onPageLoad());
         function onPageLoad(){
-            let requeteTest = $.ajax({
-                url:`${prefix_api}users.php`,
-                method:"GET",
-                dataType:"json"
-            });
-            requeteTest.done(function(data){
-                for(let i = 0; i< data.length; i++){
-                    let id = data[i]['id'];
-                    let name = data[i]['name'];
-                    let mail = data[i]['email'];
-                    $("#studentsTableBody").append(`<tr><td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
-                }
-                $("#studentsTableBody").closest("table").DataTable();
-            });
-            requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
+            // let requeteTest = $.ajax({
+            //     url:`${prefix_api}users.php`,
+            //     method:"GET",
+            //     dataType:"json"
+            // });
+            // requeteTest.done(function(data){
+            //     for(let i = 0; i< data.length; i++){
+            //         let id = data[i]['id'];
+            //         let name = data[i]['name'];
+            //         let mail = data[i]['email'];
+            //         $("#studentsTableBody").append(`<tr><td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(${data.id}, this)">Delete</button></td></tr>`);
+            //     }
+            //     $("#studentsTableBody").closest("table").DataTable();
+            // });
+            // requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
+            $("#studentsTableBody").closest("table").DataTable();
         }
 
     function onFormSubmit() {
