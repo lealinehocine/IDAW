@@ -52,24 +52,29 @@
 
 <script>
 
-//les utilisateurs crées doivent rester quand je rafraichis la page : à faire
-function onPageLoad(){
-            let requeteTest = $.ajax({
-                url:'../../TP4/exo5/users.php',
-                method:'GET',
-                dataType:'json'
-            });             requeteTest.done(function(data){
-                for(let i = 0; i< data.length; i++){
-                    let id = data[i]['id'];
-                    let name = data[i]['name'];
-                    let mail = data[i]['email'];
-                    $("#studentsTableBody").append(`<tr><td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
-                }
-            });
-            requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
-        }
+//fichier de config ou variable à faire : bien mieux pour déployer sur d'autres machines après
+let prefix_api = "http://localhost/IDAW/TP4/exo5/";
 
- //   onPageLoad();
+//les utilisateurs crées doivent rester quand je rafraichis la page : à faire
+// function onPageLoad(){
+//             let requeteTest = $.ajax({
+//             url: `${prefix_api}users.php`,
+
+//                 method:'GET',
+//                 dataType:'json'
+//             });             
+//             requeteTest.done(function(data){
+//                 for(let i = 0; i< data.length; i++){
+//                     let id = data[i]['id'];
+//                     let name = data[i]['name'];
+//                     let mail = data[i]['email'];
+//                     $("#studentsTableBody").append(`<tr><td>${name}</td><td>${mail}</td><td><button class="edit" onclick="editUser(this)">Edit</button></td><td><button class="delete" onclick="deleteUser(this)">Delete</button></td></tr>`);
+//                 }
+//             });
+//             requeteTest.fail(function(){window.alert("Erreur lors du chargement de la page.")});
+//         }
+
+//     onPageLoad();
 
     function onFormSubmit() {
     // prevent the form to be sent to the server
@@ -77,10 +82,12 @@ function onPageLoad(){
         let nom = $("#inputNom").val();
         let email = $("#inputEmail").val();
 
+//ATTENTION : utiliser l'url : '../../TP4/exo5/users.php' revient à mélanger le front et le back et empêche de les déployer sur des machines différentes après
 
         if(nom){
             $.ajax({
-                    url:'../../TP4/exo5/users.php',
+                    url: `${prefix_api}users.php`,
+
                     type: 'POST',
                     data: {
                         name: nom,
@@ -111,7 +118,8 @@ function onPageLoad(){
         // Gestion de la suppression d'un utilisateur 
         function deleteUser(userId, button){
             $.ajax({
-                url:'../../TP4/exo5/users.php', // à modifier
+                url: `${prefix_api}users.php`,
+
                 type: 'DELETE',
                 contentType: 'application/json',
                 data: JSON.stringify({ id: userId }),
@@ -165,7 +173,7 @@ console.log({
 
     // Requête AJAX pour mettre à jour l'utilisateur en utilisant $.ajax
     $.ajax({
-        url: '../../TP4/exo5/users.php',
+        url: `${prefix_api}users.php`,
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify({
